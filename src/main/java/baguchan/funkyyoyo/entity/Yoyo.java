@@ -34,6 +34,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class Yoyo extends ThrowableItemProjectile {
     private static final EntityDataAccessor<Boolean> RETURNING = SynchedEntityData.defineId(Yoyo.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Float> SPEED_DECREASE = SynchedEntityData.defineId(Yoyo.class, EntityDataSerializers.FLOAT);
 
     private int flyTick;
 
@@ -42,13 +43,17 @@ public class Yoyo extends ThrowableItemProjectile {
         super(entityEntityType, world);
     }
 
-    public Yoyo(EntityType<? extends Yoyo> type, Level world, LivingEntity shootingEntity, ItemStack boomerang) {
+    public Yoyo(EntityType<? extends Yoyo> type, Level world, LivingEntity shootingEntity, ItemStack yoyo) {
         super(type, shootingEntity, world);
         setOwner(shootingEntity);
+        YoyoSide side = YoyoUtils.getYoyoSide(yoyo);
+        if (side != null) {
+            this.setSpeedDecrease(side.getSpeedDecrease());
+        }
     }
 
-    public Yoyo(Level world, LivingEntity entity, ItemStack boomerang) {
-        this(ModEntities.YOYO.get(), world, entity, boomerang);
+    public Yoyo(Level world, LivingEntity entity, ItemStack yoyo) {
+        this(ModEntities.YOYO.get(), world, entity, yoyo);
     }
 
 
@@ -68,31 +73,21 @@ public class Yoyo extends ThrowableItemProjectile {
         super.onHitEntity(result);
         boolean returnToOwner = false;
         Entity shooter = getOwner();
-        if (result.getEntity() != getOwner()) {
-            YoyoSide side = YoyoUtils.getYoyoSide(getItem());
-            int baseDamage = side == null ? 2 : side.getAttackDamage();
-            int sharpness = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SHARPNESS, getItem());
-            int damage = (int) ((baseDamage * Math.sqrt(getDeltaMovement().x * getDeltaMovement().x + getDeltaMovement().y * getDeltaMovement().y * 0.5D + getDeltaMovement().z * getDeltaMovement().z) + Math.min(1, sharpness) + Math.max(0, sharpness - 1) * 0.5D));
+        if (this.flyTick < 20) {
+            if (result.getEntity() != getOwner()) {
+                YoyoSide side = YoyoUtils.getYoyoSide(getItem());
+                int baseDamage = side == null ? 2 : side.getAttackDamage();
+                int sharpness = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SHARPNESS, getItem());
+                int damage = (int) (((baseDamage + 1.0D) * Math.sqrt(getDeltaMovement().x * getDeltaMovement().x + getDeltaMovement().y * getDeltaMovement().y * 0.5D + getDeltaMovement().z * getDeltaMovement().z) + Math.min(1, sharpness) + Math.max(0, sharpness - 1) * 0.5D));
 
-            if (damage != 0) {
-                result.getEntity().hurt(this.damageSources().thrown(this, shooter), damage);
-            }
-            if (shooter instanceof LivingEntity) {
-                getItem().hurtAndBreak(1, (LivingEntity) shooter, p_222182_1_ -> {
-                });
-            }
+                if (damage != 0) {
+                    result.getEntity().hurt(this.damageSources().thrown(this, shooter), damage);
+                }
+                if (shooter instanceof LivingEntity) {
+                    getItem().hurtAndBreak(1, (LivingEntity) shooter, p_222182_1_ -> {
+                    });
+                }
 
-            double speed = getSpeed();
-            returnToOwner = true;
-            Vec3 motion = getDeltaMovement();
-            double motionX = motion.x;
-            double motionY = motion.y;
-            double motionZ = motion.z;
-            motionX = -motionX;
-            motionZ = -motionZ;
-            setDeltaMovement(motionX, motionY, motionZ);
-            if (returnToOwner && !isReturning()) {
-                setReturning(true);
             }
         }
     }
@@ -174,7 +169,7 @@ public class Yoyo extends ThrowableItemProjectile {
             }
             if (this.flyTick < 20) {
                 //recover movement
-                this.setDeltaMovement(vec3.scale(1.01F));
+                this.setDeltaMovement(vec3.scale(1.01F - getSpeedDecrease()));
             }
         }
         if (entity != null && !shouldReturnToThrower() && isReturning()) {
@@ -190,7 +185,7 @@ public class Yoyo extends ThrowableItemProjectile {
 
     @Override
     protected float getGravity() {
-        return 0.0F;
+        return this.getSpeedDecrease();
     }
 
     @Override
@@ -213,19 +208,22 @@ public class Yoyo extends ThrowableItemProjectile {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(RETURNING, Boolean.valueOf(false));
+        this.entityData.define(SPEED_DECREASE, 0F);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag nbt) {
         super.addAdditionalSaveData(nbt);
-        nbt.putBoolean("returning", isReturning());
+        nbt.putBoolean("Returning", this.isReturning());
+        nbt.putFloat("SpeedDecrease", this.getSpeedDecrease());
     }
 
 
     @Override
     public void readAdditionalSaveData(CompoundTag nbt) {
         super.readAdditionalSaveData(nbt);
-        setReturning(nbt.getBoolean("returning"));
+        this.setReturning(nbt.getBoolean("Returning"));
+        this.setSpeedDecrease(nbt.getFloat("SpeedDecrease"));
     }
 
     public boolean isReturning() {
@@ -243,4 +241,11 @@ public class Yoyo extends ThrowableItemProjectile {
         this.entityData.set(RETURNING, Boolean.valueOf(returning));
     }
 
+    public void setSpeedDecrease(float speedDecrease) {
+        this.entityData.set(SPEED_DECREASE, speedDecrease);
+    }
+
+    public float getSpeedDecrease() {
+        return this.entityData.get(SPEED_DECREASE);
+    }
 }

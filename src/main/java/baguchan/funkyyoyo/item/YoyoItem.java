@@ -40,7 +40,7 @@ public class YoyoItem extends Item {
         if (!levelIn.isClientSide) {
             Yoyo yoyo = new Yoyo(levelIn, playerIn, itemstack);
             yoyo.setItem(itemstack.copy());
-            yoyo.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0F, 1.8F, 0F);
+            yoyo.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0F, 1.2F, 0F);
             levelIn.addFreshEntity(yoyo);
         }
         playerIn.awardStat(Stats.ITEM_USED.get(this));
@@ -52,8 +52,6 @@ public class YoyoItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag p_41424_) {
         super.appendHoverText(stack, level, tooltip, p_41424_);
-        ChatFormatting[] textformatting2 = new ChatFormatting[]{ChatFormatting.LIGHT_PURPLE};
-
         YoyoCore yoyoCore = YoyoUtils.getYoyoCore(stack);
         YoyoSide yoyoSide = YoyoUtils.getYoyoSide(stack);
         //tooltip.add(StringTextComponent.EMPTY);

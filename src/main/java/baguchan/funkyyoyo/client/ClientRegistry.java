@@ -27,7 +27,6 @@ public class ClientRegistry {
 
 
     public static void setup(FMLCommonSetupEvent event) {
-
         MenuScreens.register(ModMenus.YOYO_TABLE.get(), YoyoTableScreen::new);
     }
 }

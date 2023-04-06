@@ -39,7 +39,7 @@ public class YoyoRenderer extends EntityRenderer<Yoyo> {
 
         stackIn.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entity.yRotO, entity.getYRot())));
         stackIn.mulPose(Axis.XP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot())));
-        stackIn.mulPose(Axis.XP.rotationDegrees((entity.tickCount + partialTicks) * 10F));
+        stackIn.mulPose(Axis.XP.rotationDegrees((float) ((entity.tickCount + partialTicks) * 40F + (entity.getSpeed() * 60F))));
 
 
         stackIn.translate(0.0F, -1.501F + 0.4F, 0);

@@ -12,7 +12,8 @@ public class YoyoSide {
             .group(
                     ResourceLocation.CODEC.fieldOf("material_id").forGetter(yoyoCore -> yoyoCore.materialID),
                     ResourceLocation.CODEC.fieldOf("texture").forGetter(yoyoCore -> yoyoCore.texture),
-                    Codec.INT.fieldOf("attack_damage").forGetter(yoyoCore -> yoyoCore.attackDamage))
+                    Codec.INT.fieldOf("attack_damage").forGetter(yoyoCore -> yoyoCore.attackDamage),
+                    Codec.FLOAT.fieldOf("speed_decrease").orElse(0.0F).forGetter(yoyoCore -> yoyoCore.speedDecrease))
             .apply(instance, YoyoSide::new)
     );
 
@@ -21,11 +22,13 @@ public class YoyoSide {
     private final ResourceLocation materialID;
     private final ResourceLocation texture;
     private final int attackDamage;
+    private final float speedDecrease;
 
-    public YoyoSide(ResourceLocation materialID, ResourceLocation texture, int attackDamage) {
+    public YoyoSide(ResourceLocation materialID, ResourceLocation texture, int attackDamage, float speedDecrease) {
         this.materialID = materialID;
         this.texture = texture;
         this.attackDamage = attackDamage;
+        this.speedDecrease = speedDecrease;
     }
 
     public ResourceLocation getMaterialId() {
@@ -38,5 +41,9 @@ public class YoyoSide {
 
     public int getAttackDamage() {
         return attackDamage;
+    }
+
+    public float getSpeedDecrease() {
+        return speedDecrease;
     }
 }

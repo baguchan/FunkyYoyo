@@ -1,0 +1,6 @@
+{
+  "material_id": "minecraft:iron_ingot",
+  "texture": "funkyyoyo:textures/entity/yoyo_side/iron_side.png",
+  "attack_damage": 5,
+  "speed_decrease": 0.02
+}
