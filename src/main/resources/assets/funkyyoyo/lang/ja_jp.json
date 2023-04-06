@@ -1,7 +1,7 @@
 {
   "item.funkyyoyo.yoyo": "ヨーヨー",
-  "block.funkyyoyo.yoyo_station": "ヨーヨー作業台",
+  "block.funkyyoyo.yoyo_table": "ヨーヨー作業台",
   "container.funkyyoyo.yoyo_table": "ヨーヨー作業台",
-  "item.funkyyoyo.yoyo.what_made_of": "なにでできているか",
-  "itemGroup.funkyoyo.main": "Funk Yoyo"
+  "item.funkyyoyo.yoyo.what_made_of": "なにでできているか :",
+  "itemGroup.funkyyoyo.main": "Funk Yoyo"
 }

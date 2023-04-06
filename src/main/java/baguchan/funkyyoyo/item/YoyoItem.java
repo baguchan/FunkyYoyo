@@ -16,7 +16,6 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -40,14 +39,13 @@ public class YoyoItem extends Item {
         levelIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.EGG_THROW, SoundSource.PLAYERS, 0.5F, 0.4F / (playerIn.getRandom().nextFloat() * 0.4F + 0.8F));
         if (!levelIn.isClientSide) {
             Yoyo yoyo = new Yoyo(levelIn, playerIn, itemstack);
-            yoyo.setItem(itemstack);
+            yoyo.setItem(itemstack.copy());
             yoyo.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0F, 1.8F, 0F);
             levelIn.addFreshEntity(yoyo);
         }
         playerIn.awardStat(Stats.ITEM_USED.get(this));
         playerIn.getCooldowns().addCooldown(itemstack.getItem(), 10);
-        if (!playerIn.level.isClientSide)
-            itemstack.hurtAndBreak(1, (LivingEntity) playerIn, playerEntity -> playerEntity.broadcastBreakEvent(handIn));
+        itemstack.shrink(1);
         return InteractionResultHolder.sidedSuccess(itemstack, levelIn.isClientSide());
     }
 
@@ -61,11 +59,11 @@ public class YoyoItem extends Item {
         //tooltip.add(StringTextComponent.EMPTY);
         tooltip.add((Component.translatable("item.funkyyoyo.yoyo.what_made_of")).withStyle(ChatFormatting.LIGHT_PURPLE));
         if (yoyoCore != null) {
-            tooltip.add(ForgeRegistries.ITEMS.getValue(yoyoCore.getMaterialId()).getDescription().copy().withStyle(ChatFormatting.LIGHT_PURPLE));
+            tooltip.add(ForgeRegistries.ITEMS.getValue(yoyoCore.getMaterialId()).getDescription().copy().withStyle(ChatFormatting.WHITE));
         }
 
         if (yoyoSide != null) {
-            tooltip.add(ForgeRegistries.ITEMS.getValue(yoyoSide.getMaterialId()).getDescription().copy().withStyle(ChatFormatting.LIGHT_PURPLE));
+            tooltip.add(ForgeRegistries.ITEMS.getValue(yoyoSide.getMaterialId()).getDescription().copy().withStyle(ChatFormatting.WHITE));
         }
 
     }
