@@ -1,6 +1,7 @@
 {
   "item.funkyyoyo.yoyo": "ヨーヨー",
-  "item.funkyyoyo.wood_part": "木のヨーヨーのパーツ",
+  "item.funkyyoyo.wood_side_parts": "木のヨーヨーの側面のパーツ",
+  "item.funkyyoyo.wood_core_part": "木のヨーヨーの中心のパーツ",
   "block.funkyyoyo.yoyo_table": "ヨーヨー作業台",
   "entity.funkyyoyo.funker": "ファンカー",
   "container.funkyyoyo.yoyo_table": "ヨーヨー作業台",

@@ -1,5 +1,7 @@
-// 1.19.4	2023-04-06T19:57:37.8308729	Recipes
-cf9ea995f64c6f04e3d66a342cbb0a4f232ce3b1 data/funkyyoyo/advancements/recipes/misc/wood_parts.json
+// 1.19.4	2023-04-06T20:07:41.5095983	Recipes
+5c83e3b34160c9e1829b3a4b2b6bcc782acf0996 data/funkyyoyo/advancements/recipes/misc/wood_core_part.json
+3cd155838f8ffe80803561c15d5779997a1569ea data/funkyyoyo/advancements/recipes/misc/wood_side_parts.json
 68dc759d098b52024c885ed03242e13006daf350 data/funkyyoyo/advancements/recipes/tools/yoyo_table.json
-8d841419c3a176e0be80140e7a4d64391f4bf4f8 data/funkyyoyo/recipes/wood_parts.json
+56465093208329b5ac9935f99a9fb05feccc7035 data/funkyyoyo/recipes/wood_core_part.json
+d0416c567a994a23b9304e4a93b6b52dfe0dc681 data/funkyyoyo/recipes/wood_side_parts.json
 8f96abd4ee85a19d1e4c6e841ebbc92679e9036f data/funkyyoyo/recipes/yoyo_table.json

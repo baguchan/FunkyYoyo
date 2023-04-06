@@ -46,12 +46,12 @@ public class YoyoRenderer extends EntityRenderer<Yoyo> {
         YoyoCore core = YoyoUtils.getYoyoCore(entity.getItem());
         if(core != null) {
             VertexConsumer vertexconsumer = ItemRenderer.getFoilBufferDirect(p_116115_, this.model.renderType(core.getTexture()), false, entity.getItem().hasFoil());
-            this.model.renderAttach(stackIn, vertexconsumer, p_116116_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.model.renderCore(stackIn, vertexconsumer, p_116116_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         }
         YoyoSide side = YoyoUtils.getYoyoSide(entity.getItem());
         if(side != null) {
             VertexConsumer vertexconsumer2 = ItemRenderer.getFoilBufferDirect(p_116115_, this.model.renderType(side.getTexture()), false, entity.getItem().hasFoil());
-            this.model.renderAttach(stackIn, vertexconsumer2, p_116116_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.model.renderCore(stackIn, vertexconsumer2, p_116116_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         }
         stackIn.popPose();
 

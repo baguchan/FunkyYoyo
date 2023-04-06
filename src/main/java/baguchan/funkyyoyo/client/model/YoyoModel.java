@@ -16,22 +16,22 @@ import net.minecraft.world.entity.Entity;
 public class YoyoModel<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "yoyomodel"), "main");
-	private final ModelPart root;
-	private final ModelPart attach;
+	private final ModelPart side;
+	private final ModelPart core;
 
-	public YoyoModel(ModelPart root) {
-		this.root = root.getChild("root");
-		this.attach = root.getChild("attach");
+	public YoyoModel(ModelPart side) {
+		this.side = side.getChild("side");
+		this.core = side.getChild("core");
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create().texOffs(0, 0).addBox(1.0F, -4.0F, -4.0F, 2.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
-		.texOffs(0, 0).addBox(-3.0F, -4.0F, -4.0F, 2.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 20.0F, 0.0F));
+		PartDefinition side = partdefinition.addOrReplaceChild("side", CubeListBuilder.create().texOffs(0, 0).addBox(1.0F, -4.0F, -4.0F, 2.0F, 8.0F, 8.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 0).addBox(-3.0F, -4.0F, -4.0F, 2.0F, 8.0F, 8.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 20.0F, 0.0F));
 
-		PartDefinition attach = partdefinition.addOrReplaceChild("attach", CubeListBuilder.create().texOffs(20, 0).addBox(-1.0F, -7.0F, -3.0F, 2.0F, 6.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
+		PartDefinition core = partdefinition.addOrReplaceChild("core", CubeListBuilder.create().texOffs(20, 0).addBox(-1.0F, -7.0F, -3.0F, 2.0F, 6.0F, 6.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
 		return LayerDefinition.create(meshdefinition, 64, 32);
 	}
@@ -43,15 +43,15 @@ public class YoyoModel<T extends Entity> extends EntityModel<T> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
-		attach.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		side.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		core.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
 	public void renderSide(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		root.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+		side.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 
-	public void renderAttach(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
-		attach.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
+	public void renderCore(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+		core.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
 	}
 }

@@ -1,6 +1,7 @@
 {
   "item.funkyyoyo.yoyo": "Yoyo",
-  "item.funkyyoyo.wood_parts": "Wood Yoyo Parts",
+  "item.funkyyoyo.wood_side_parts": "Wood Yoyo Side Parts",
+  "item.funkyyoyo.wood_core_part": "Wood Yoyo Core Part",
   "block.funkyyoyo.yoyo_table": "Yoyo Table",
   "entity.funkyyoyo.funker": "Funker",
   "container.funkyyoyo.yoyo_table": "Yoyo Tables",

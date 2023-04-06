@@ -14,11 +14,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class YoyoPartItemBWLR extends BlockEntityWithoutLevelRenderer {
+public class YoyoSidePartItemBWLR extends BlockEntityWithoutLevelRenderer {
     private YoyoModel yoyoModel;
     private final ResourceLocation partID;
 
-    public YoyoPartItemBWLR(ResourceLocation partID) {
+    public YoyoSidePartItemBWLR(ResourceLocation partID) {
         super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
         this.yoyoModel = new YoyoModel(Minecraft.getInstance().getEntityModels().bakeLayer(ModModelLayers.YOYO));
         this.partID = partID;

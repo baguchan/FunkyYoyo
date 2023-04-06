@@ -1,6 +1,6 @@
 package baguchan.funkyyoyo.item;
 
-import baguchan.funkyyoyo.client.render.item.YoyoSidePartItemBWLR;
+import baguchan.funkyyoyo.client.render.item.YoyoCorePartItemBWLR;
 import baguchan.funkyyoyo.util.YoyoUtils;
 import baguchan.funkyyoyo.yoyocore.YoyoCore;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -11,11 +11,11 @@ import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
 import java.util.function.Consumer;
 
-public class YoyoSideItem extends Item {
+public class YoyoCoreItem extends Item {
 
     private final ResourceLocation partId;
 
-    public YoyoSideItem(Properties properties, ResourceLocation partId) {
+    public YoyoCoreItem(Properties properties, ResourceLocation partId) {
         super(properties);
         this.partId = partId;
     }
@@ -35,7 +35,7 @@ public class YoyoSideItem extends Item {
         consumer.accept(new IClientItemExtensions() {
             @Override
             public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return new YoyoSidePartItemBWLR(partId);
+                return new YoyoCorePartItemBWLR(partId);
             }
         });
     }
