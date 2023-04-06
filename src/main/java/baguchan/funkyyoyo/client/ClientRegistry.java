@@ -2,6 +2,7 @@ package baguchan.funkyyoyo.client;
 
 import baguchan.funkyyoyo.FunkyYoyo;
 import baguchan.funkyyoyo.client.model.YoyoModel;
+import baguchan.funkyyoyo.client.render.FunkerRenderer;
 import baguchan.funkyyoyo.client.render.YoyoRenderer;
 import baguchan.funkyyoyo.client.screen.YoyoTableScreen;
 import baguchan.funkyyoyo.register.ModEntities;
@@ -18,6 +19,7 @@ public class ClientRegistry {
     @SubscribeEvent
     public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.YOYO.get(), YoyoRenderer::new);
+        event.registerEntityRenderer(ModEntities.FUNKER.get(), FunkerRenderer::new);
     }
 
     @SubscribeEvent

@@ -5,6 +5,7 @@ import baguchan.funkyyoyo.yoyocore.YoyoCore;
 import baguchan.funkyyoyo.yoyoside.YoyoSide;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 
 import javax.annotation.Nullable;
@@ -25,10 +26,21 @@ public class YoyoUtils {
         return stack;
     }
 
+    public static ItemStack randomMakeYoyo(RandomSource random, ItemStack stack) {
+        CompoundTag compoundTag = stack.getOrCreateTag();
+        FunkyYoyo.registryAccess().registryOrThrow(YoyoCore.REGISTRY_KEY).getRandom(random).ifPresent(yoyoCoreReference -> {
+            compoundTag.putString(TAG_YOYO_CORE, yoyoCoreReference.key().toString());
+        });
+        FunkyYoyo.registryAccess().registryOrThrow(YoyoSide.REGISTRY_KEY).getRandom(random).ifPresent(yoyoSideReference -> {
+            compoundTag.putString(TAG_YOYO_SIDE, yoyoSideReference.key().toString());
+        });
+        return stack;
+    }
+
     @Nullable
     public static YoyoSide getYoyoSide(ItemStack stack) {
         CompoundTag compoundTag = stack.getTag();
-        if(compoundTag != null) {
+        if (compoundTag != null) {
             return FunkyYoyo.registryAccess().registryOrThrow(YoyoSide.REGISTRY_KEY).get(ResourceLocation.tryParse(compoundTag.getString(TAG_YOYO_SIDE)));
         }
 

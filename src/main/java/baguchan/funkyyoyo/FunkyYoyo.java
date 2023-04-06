@@ -11,6 +11,7 @@ import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -56,6 +57,7 @@ public class FunkyYoyo
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         // Some common setup code
+        Raid.RaiderType.create("funkyyoyo:funker", ModEntities.FUNKER.get(), new int[]{0, 1, 1, 2, 1, 2, 3, 4});
     }
 
     private void dataSetup(final DataPackRegistryEvent.NewRegistry event)
