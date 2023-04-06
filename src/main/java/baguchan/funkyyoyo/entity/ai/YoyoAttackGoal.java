@@ -4,7 +4,6 @@ import baguchan.funkyyoyo.entity.Funker;
 import baguchan.funkyyoyo.item.YoyoItem;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.item.BowItem;
 
 public class YoyoAttackGoal extends Goal {
     private final Funker mob;
@@ -22,7 +21,7 @@ public class YoyoAttackGoal extends Goal {
     @Override
     public boolean canUse() {
         LivingEntity entity = mob.getTarget();
-        return mob.isHolding((item) -> item.getItem() instanceof YoyoItem) && entity != null && entity.isAlive() && entity.distanceToSqr(mob) > 8D;
+        return entity != null && entity.isAlive() && entity.distanceToSqr(mob) > 8D;
     }
 
     @Override
@@ -54,18 +53,18 @@ public class YoyoAttackGoal extends Goal {
                 --this.seeTime;
             }
 
-            if (this.mob.isUsingItem()) {
+            if (mob.isHolding((item) -> item.getItem() instanceof YoyoItem)) {
                 if (!flag && this.seeTime < -60) {
                     this.mob.stopUsingItem();
                 } else if (flag) {
-                    int i = this.mob.getTicksUsingItem();
-                    if (i >= 20) {
-                        this.mob.performAttack(livingentity, BowItem.getPowerForTime(i));
+
+                    if (--this.attackTime < 0) {
+                        this.mob.performAttack(livingentity);
                         this.attackTime = this.attackIntervalMin;
                     }
                 }
-            } else if (--this.attackTime <= 0 && this.seeTime >= -60) {
             }
+
         }
     }
 }

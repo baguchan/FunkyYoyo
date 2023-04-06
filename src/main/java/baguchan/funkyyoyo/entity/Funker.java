@@ -53,7 +53,7 @@ public class Funker extends AbstractIllager {
         this.goalSelector.addGoal(1, new OpenDoorGoal(this, true));
         this.goalSelector.addGoal(2, new AbstractIllager.RaiderOpenDoorGoal(this));
         this.goalSelector.addGoal(3, new Raider.HoldGroundAttackGoal(this, 10.0F));
-        this.goalSelector.addGoal(4, new YoyoAttackGoal(this, 50, 16.0F));
+        this.goalSelector.addGoal(4, new YoyoAttackGoal(this, 100, 16.0F));
         this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.15F, true));
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, Raider.class)).setAlertOthers(AbstractIllager.class));
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
@@ -66,6 +66,16 @@ public class Funker extends AbstractIllager {
 
     public static AttributeSupplier.Builder createAttributes() {
         return Monster.createMonsterAttributes().add(Attributes.MOVEMENT_SPEED, (double) 0.3F).add(Attributes.FOLLOW_RANGE, 20.0D).add(Attributes.MAX_HEALTH, 26.0D).add(Attributes.ATTACK_DAMAGE, 3.0D);
+    }
+
+    public boolean isAlliedTo(Entity p_34110_) {
+        if (super.isAlliedTo(p_34110_)) {
+            return true;
+        } else if (p_34110_ instanceof LivingEntity && ((LivingEntity) p_34110_).getMobType() == MobType.ILLAGER) {
+            return this.getTeam() == null && p_34110_.getTeam() == null;
+        } else {
+            return false;
+        }
     }
 
     @Nullable
@@ -150,14 +160,21 @@ public class Funker extends AbstractIllager {
         return SoundEvents.PILLAGER_CELEBRATE;
     }
 
-    public void performAttack(LivingEntity p_82196_1_, float p_82196_2_) {
-        Yoyo boomerang = new Yoyo(this.level, this, this.getOffhandItem().split(1));
+    public void performAttack(LivingEntity p_82196_1_) {
+        Yoyo yoyo = new Yoyo(this.level, this, this.getMainHandItem().split(1));
         double d0 = p_82196_1_.getX() - this.getX();
-        double d1 = p_82196_1_.getY(0.3333333333333333D) - boomerang.getY();
+        double d1 = p_82196_1_.getY(0.3333333333333333D) - yoyo.getY();
         double d2 = p_82196_1_.getZ() - this.getZ();
         double d3 = (double) Mth.sqrt((float) (d0 * d0 + d2 * d2));
-        boomerang.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.2F, (float) (14 - this.level.getDifficulty().getId() * 4));
+        yoyo.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.2F, (float) (14 - this.level.getDifficulty().getId() * 4));
         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.level.addFreshEntity(boomerang);
+        this.level.addFreshEntity(yoyo);
+    }
+
+    public AbstractIllager.IllagerArmPose getArmPose() {
+        if (this.isCelebrating()) {
+            return IllagerArmPose.CELEBRATING;
+        }
+        return this.isAggressive() ? AbstractIllager.IllagerArmPose.ATTACKING : AbstractIllager.IllagerArmPose.NEUTRAL;
     }
 }

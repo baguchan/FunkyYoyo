@@ -1,6 +1,8 @@
 {
   "item.funkyyoyo.yoyo": "ヨーヨー",
+  "item.funkyyoyo.wood_part": "木のヨーヨーのパーツ",
   "block.funkyyoyo.yoyo_table": "ヨーヨー作業台",
+  "entity.funkyyoyo.funker": "ファンカー",
   "container.funkyyoyo.yoyo_table": "ヨーヨー作業台",
   "item.funkyyoyo.yoyo.what_made_of": "なにでできているか :",
   "item.funkyyoyo.funker_spawn_egg": "ファンカーのスポーンエッグ",

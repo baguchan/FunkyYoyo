@@ -38,14 +38,12 @@ public class YoyoItem extends Item {
         ItemStack itemstack = playerIn.getItemInHand(handIn);
         levelIn.playSound(null, playerIn.getX(), playerIn.getY(), playerIn.getZ(), SoundEvents.EGG_THROW, SoundSource.PLAYERS, 0.5F, 0.4F / (playerIn.getRandom().nextFloat() * 0.4F + 0.8F));
         if (!levelIn.isClientSide) {
-            Yoyo yoyo = new Yoyo(levelIn, playerIn, itemstack);
-            yoyo.setItem(itemstack.copy());
+            Yoyo yoyo = new Yoyo(levelIn, playerIn, itemstack.split(1));
             yoyo.shootFromRotation(playerIn, playerIn.getXRot(), playerIn.getYRot(), 0.0F, 1.2F, 0F);
             levelIn.addFreshEntity(yoyo);
         }
         playerIn.awardStat(Stats.ITEM_USED.get(this));
         playerIn.getCooldowns().addCooldown(itemstack.getItem(), 10);
-        itemstack.shrink(1);
         return InteractionResultHolder.sidedSuccess(itemstack, levelIn.isClientSide());
     }
 

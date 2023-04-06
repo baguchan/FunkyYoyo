@@ -50,6 +50,7 @@ public class Yoyo extends ThrowableItemProjectile {
         if (side != null) {
             this.setSpeedDecrease(side.getSpeedDecrease());
         }
+        this.setItem(yoyo);
     }
 
     public Yoyo(Level world, LivingEntity entity, ItemStack yoyo) {
@@ -73,22 +74,20 @@ public class Yoyo extends ThrowableItemProjectile {
         super.onHitEntity(result);
         boolean returnToOwner = false;
         Entity shooter = getOwner();
-        if (this.flyTick < 20) {
-            if (result.getEntity() != getOwner()) {
-                YoyoSide side = YoyoUtils.getYoyoSide(getItem());
-                int baseDamage = side == null ? 2 : side.getAttackDamage();
-                int sharpness = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SHARPNESS, getItem());
-                int damage = (int) (((baseDamage + 1.0D) * Math.sqrt(getDeltaMovement().x * getDeltaMovement().x + getDeltaMovement().y * getDeltaMovement().y * 0.5D + getDeltaMovement().z * getDeltaMovement().z) + Math.min(1, sharpness) + Math.max(0, sharpness - 1) * 0.5D));
+        if (result.getEntity() != getOwner()) {
+            YoyoSide side = YoyoUtils.getYoyoSide(getItem());
+            int baseDamage = side == null ? 2 : side.getAttackDamage();
+            int sharpness = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SHARPNESS, getItem());
+            int damage = (int) (((baseDamage + 1.0D) * Math.sqrt(getDeltaMovement().x * getDeltaMovement().x + getDeltaMovement().y * getDeltaMovement().y * 0.5D + getDeltaMovement().z * getDeltaMovement().z) + Math.min(1, sharpness) + Math.max(0, sharpness - 1) * 0.5D));
 
-                if (damage != 0) {
-                    result.getEntity().hurt(this.damageSources().thrown(this, shooter), damage);
-                }
-                if (shooter instanceof LivingEntity) {
-                    getItem().hurtAndBreak(1, (LivingEntity) shooter, p_222182_1_ -> {
-                    });
-                }
-
+            if (damage != 0) {
+                result.getEntity().hurt(this.damageSources().thrown(this, shooter), damage);
             }
+            if (shooter instanceof LivingEntity) {
+                getItem().hurtAndBreak(1, (LivingEntity) shooter, p_222182_1_ -> {
+                });
+            }
+
         }
     }
 
@@ -129,7 +128,7 @@ public class Yoyo extends ThrowableItemProjectile {
     private boolean shouldReturnToThrower() {
         Entity entity = getOwner();
         if (entity != null && entity.isAlive())
-            return (!(entity instanceof Player) || !entity.isSpectator());
+            return (this.distanceToSqr(entity) > 3 && !entity.isSpectator());
         return false;
     }
 
@@ -142,11 +141,13 @@ public class Yoyo extends ThrowableItemProjectile {
     }
 
     public void drop(double x, double y, double z) {
-        if ((getOwner() instanceof Player && !((Player) getOwner()).isCreative())) {
-            this.level.addFreshEntity(new ItemEntity(this.level, x, y, z, getItem().split(1)));
-            this.discard();
-        } else {
-            this.discard();
+        if (!this.level.isClientSide) {
+            if ((getOwner() instanceof Player && !((Player) getOwner()).isCreative()) || !(getOwner() instanceof Player)) {
+                this.level.addFreshEntity(new ItemEntity(this.level, x, y, z, getItem().split(1)));
+                this.discard();
+            } else {
+                this.discard();
+            }
         }
     }
 

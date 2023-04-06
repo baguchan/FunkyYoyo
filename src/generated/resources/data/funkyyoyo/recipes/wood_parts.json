@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "minecraft:wooden_pressure_plates"
+    }
+  },
+  "pattern": [
+    "# #"
+  ],
+  "result": {
+    "item": "funkyyoyo:wood_parts"
+  },
+  "show_notification": true
+}

@@ -6,6 +6,7 @@ import baguchan.funkyyoyo.entity.Funker;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.IllagerRenderer;
+import net.minecraft.client.renderer.entity.layers.ItemInHandLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class FunkerRenderer<T extends Funker> extends IllagerRenderer<T> {
@@ -13,6 +14,7 @@ public class FunkerRenderer<T extends Funker> extends IllagerRenderer<T> {
 
     public FunkerRenderer(EntityRendererProvider.Context p_174182_) {
         super(p_174182_, new FunkerModel<>(p_174182_.bakeLayer(ModelLayers.VINDICATOR)), 0.5F);
+        this.addLayer(new ItemInHandLayer<>(this, p_174182_.getItemInHandRenderer()));
     }
 
     @Override

@@ -1,6 +1,8 @@
 {
   "item.funkyyoyo.yoyo": "Yoyo",
+  "item.funkyyoyo.wood_parts": "Wood Yoyo Parts",
   "block.funkyyoyo.yoyo_table": "Yoyo Table",
+  "entity.funkyyoyo.funker": "Funker",
   "container.funkyyoyo.yoyo_table": "Yoyo Tables",
   "item.funkyyoyo.yoyo.what_made_of": "What made of :",
   "item.funkyyoyo.funker_spawn_egg": "Funker Spawn Egg",

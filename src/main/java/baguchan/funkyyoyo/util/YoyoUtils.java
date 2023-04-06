@@ -29,12 +29,22 @@ public class YoyoUtils {
     public static ItemStack randomMakeYoyo(RandomSource random, ItemStack stack) {
         CompoundTag compoundTag = stack.getOrCreateTag();
         FunkyYoyo.registryAccess().registryOrThrow(YoyoCore.REGISTRY_KEY).getRandom(random).ifPresent(yoyoCoreReference -> {
-            compoundTag.putString(TAG_YOYO_CORE, yoyoCoreReference.key().toString());
+            compoundTag.putString(TAG_YOYO_CORE, yoyoCoreReference.key().location().toString());
         });
         FunkyYoyo.registryAccess().registryOrThrow(YoyoSide.REGISTRY_KEY).getRandom(random).ifPresent(yoyoSideReference -> {
-            compoundTag.putString(TAG_YOYO_SIDE, yoyoSideReference.key().toString());
+            compoundTag.putString(TAG_YOYO_SIDE, yoyoSideReference.key().location().toString());
         });
         return stack;
+    }
+
+    @Nullable
+    public static YoyoSide getYoyoSide(ResourceLocation resourceLocation) {
+        return FunkyYoyo.registryAccess().registryOrThrow(YoyoSide.REGISTRY_KEY).get(resourceLocation);
+    }
+
+    @Nullable
+    public static YoyoCore getYoyoCore(ResourceLocation resourceLocation) {
+        return FunkyYoyo.registryAccess().registryOrThrow(YoyoCore.REGISTRY_KEY).get(resourceLocation);
     }
 
     @Nullable
