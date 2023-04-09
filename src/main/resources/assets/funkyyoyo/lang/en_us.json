@@ -4,8 +4,14 @@
   "item.funkyyoyo.wood_core_part": "Wood Yoyo Core Part",
   "block.funkyyoyo.yoyo_table": "Yoyo Table",
   "entity.funkyyoyo.funker": "Funker",
+  "entity.funkyyoyo.yoyo": "Yoyo",
   "container.funkyyoyo.yoyo_table": "Yoyo Tables",
   "item.funkyyoyo.yoyo.what_made_of": "What made of :",
   "item.funkyyoyo.funker_spawn_egg": "Funker Spawn Egg",
-  "itemGroup.funkyyoyo.main": "Funky Yoyo"
+  "enchantment.funkyyoyo.attach": "Attach",
+  "death.attack.funkyyoyo.lightning_thrown": "%1$s felt friction",
+  "death.attack.funkyyoyo.lightning_thrown.item": "%1$s felt friction with %2$s 's throwing %3$s",
+  "death.attack.funkyyoyo.lightning_thrown.player": "%1$s felt friction with %2$s",
+  "itemGroup.funkyyoyo.main": "Funky Yoyo",
+  "subtitles.entity.yoyo.electric": "Electric"
 }

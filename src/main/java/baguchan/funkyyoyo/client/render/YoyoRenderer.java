@@ -20,11 +20,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.LightLayer;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
 public class YoyoRenderer extends EntityRenderer<Yoyo> {
+    private static final ResourceLocation POWER_LOCATION = new ResourceLocation("textures/entity/creeper/creeper_armor.png");
 
     private final YoyoModel<Yoyo> model;
 
@@ -39,19 +42,28 @@ public class YoyoRenderer extends EntityRenderer<Yoyo> {
 
         stackIn.mulPose(Axis.YP.rotationDegrees(Mth.lerp(partialTicks, entity.yRotO, entity.getYRot())));
         stackIn.mulPose(Axis.XP.rotationDegrees(Mth.lerp(partialTicks, entity.xRotO, entity.getXRot())));
-        stackIn.mulPose(Axis.XP.rotationDegrees((float) ((entity.tickCount + partialTicks) * 40F + (entity.getSpeed() * 60F))));
-
+        if (entity.canAttach()) {
+            stackIn.mulPose(Axis.XP.rotationDegrees((float) ((entity.getSpeed() * 60F))));
+        } else {
+            stackIn.mulPose(Axis.XP.rotationDegrees((float) ((entity.tickCount + partialTicks) * 40F + (entity.getSpeed() * 60F))));
+        }
 
         stackIn.translate(0.0F, -1.501F + 0.4F, 0);
         YoyoCore core = YoyoUtils.getYoyoCore(entity.getItem());
-        if(core != null) {
+        if (core != null) {
             VertexConsumer vertexconsumer = ItemRenderer.getFoilBufferDirect(p_116115_, this.model.renderType(core.getTexture()), false, entity.getItem().hasFoil());
             this.model.renderCore(stackIn, vertexconsumer, p_116116_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         }
         YoyoSide side = YoyoUtils.getYoyoSide(entity.getItem());
-        if(side != null) {
+        if (side != null) {
             VertexConsumer vertexconsumer2 = ItemRenderer.getFoilBufferDirect(p_116115_, this.model.renderType(side.getTexture()), false, entity.getItem().hasFoil());
-            this.model.renderCore(stackIn, vertexconsumer2, p_116116_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.model.renderSide(stackIn, vertexconsumer2, p_116116_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+
+            if (EnchantmentHelper.getItemEnchantmentLevel(Enchantments.CHANNELING, entity.getItem()) > 0) {
+                float f = (float) entity.tickCount + partialTicks;
+                VertexConsumer vertexconsumer3 = ItemRenderer.getFoilBufferDirect(p_116115_, RenderType.energySwirl(POWER_LOCATION, f % 1.0F, f % 1.0F), false, entity.getItem().hasFoil());
+                this.model.renderSide(stackIn, vertexconsumer3, p_116116_, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            }
         }
         stackIn.popPose();
 

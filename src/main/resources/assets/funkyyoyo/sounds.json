@@ -1,0 +1,8 @@
+{
+  "entity.yoyo.electric": {
+    "sounds": [
+      "funkyyoyo:entity/yoyo/electric"
+    ],
+    "subtitle": "subtitles.entity.yoyo.electric"
+  }
+}

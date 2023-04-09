@@ -4,8 +4,12 @@
   "item.funkyyoyo.wood_core_part": "木のヨーヨーの中心のパーツ",
   "block.funkyyoyo.yoyo_table": "ヨーヨー作業台",
   "entity.funkyyoyo.funker": "ファンカー",
+  "entity.funkyyoyo.yoyo": "ヨーヨー",
   "container.funkyyoyo.yoyo_table": "ヨーヨー作業台",
   "item.funkyyoyo.yoyo.what_made_of": "なにでできているか :",
   "item.funkyyoyo.funker_spawn_egg": "ファンカーのスポーンエッグ",
-  "itemGroup.funkyyoyo.main": "Funkey Yoyo"
+  "enchantment.funkyyoyo.attach": "接着",
+  "death.attack.funkyyoyo.lightning_thrown": "%1$sは、%2$sの投げた%3$sで、摩擦を感じた",
+  "itemGroup.funkyyoyo.main": "Funkey Yoyo",
+  "subtitles.entity.yoyo.electric": "電気が流れる"
 }

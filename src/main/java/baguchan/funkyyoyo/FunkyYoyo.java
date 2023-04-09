@@ -38,12 +38,16 @@ public class FunkyYoyo
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        ModYoyoCore.YOYO_CORE.register(modEventBus);
-        ModYoyoSide.YOYO_SIDE.register(modEventBus);
+        ModYoyoCores.YOYO_CORE.register(modEventBus);
+        ModYoyoSides.YOYO_SIDE.register(modEventBus);
+        ModYoyoPowers.YOYO_POWER.register(modEventBus);
+        ModSounds.SOUND_EVENTS.register(modEventBus);
+        ModEnchantments.ENCHANTMENTS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModMenus.MENU_TYPES.register(modEventBus);
         ModEntities.ENTITIES.register(modEventBus);
+
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::dataSetup);

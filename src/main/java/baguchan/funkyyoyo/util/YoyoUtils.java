@@ -2,8 +2,10 @@ package baguchan.funkyyoyo.util;
 
 import baguchan.funkyyoyo.FunkyYoyo;
 import baguchan.funkyyoyo.yoyocore.YoyoCore;
+import baguchan.funkyyoyo.yoyopower.YoyoPower;
 import baguchan.funkyyoyo.yoyoside.YoyoSide;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
@@ -38,6 +40,21 @@ public class YoyoUtils {
     }
 
     @Nullable
+    public static YoyoSide getYoyoSide(ResourceKey<YoyoSide> resourceLocation) {
+        return FunkyYoyo.registryAccess().registryOrThrow(YoyoSide.REGISTRY_KEY).get(resourceLocation);
+    }
+
+    @Nullable
+    public static YoyoCore getYoyoCore(ResourceKey<YoyoCore> resourceLocation) {
+        return FunkyYoyo.registryAccess().registryOrThrow(YoyoCore.REGISTRY_KEY).get(resourceLocation);
+    }
+
+    @Nullable
+    public static YoyoPower getPower(ResourceKey<YoyoPower> resourceLocation) {
+        return FunkyYoyo.registryAccess().registryOrThrow(YoyoPower.REGISTRY_KEY).get(resourceLocation);
+    }
+
+    @Nullable
     public static YoyoSide getYoyoSide(ResourceLocation resourceLocation) {
         return FunkyYoyo.registryAccess().registryOrThrow(YoyoSide.REGISTRY_KEY).get(resourceLocation);
     }
@@ -45,6 +62,35 @@ public class YoyoUtils {
     @Nullable
     public static YoyoCore getYoyoCore(ResourceLocation resourceLocation) {
         return FunkyYoyo.registryAccess().registryOrThrow(YoyoCore.REGISTRY_KEY).get(resourceLocation);
+    }
+
+    @Nullable
+    public static YoyoPower getPower(ResourceLocation resourceLocation) {
+        return FunkyYoyo.registryAccess().registryOrThrow(YoyoPower.REGISTRY_KEY).get(resourceLocation);
+    }
+
+    @Nullable
+    public static ResourceKey<YoyoSide> getYoyoSideKey(ItemStack stack) {
+        CompoundTag compoundTag = stack.getTag();
+        if (compoundTag != null) {
+            YoyoSide side = YoyoUtils.getYoyoSide(ResourceLocation.tryParse(compoundTag.getString(TAG_YOYO_SIDE)));
+            if (side != null) {
+                return FunkyYoyo.registryAccess().registryOrThrow(YoyoSide.REGISTRY_KEY).getResourceKey(side).get();
+            }
+        }
+        return null;
+    }
+
+    @Nullable
+    public static ResourceKey<YoyoCore> getYoyoCoreKey(ItemStack stack) {
+        CompoundTag compoundTag = stack.getTag();
+        if (compoundTag != null) {
+            YoyoCore core = YoyoUtils.getYoyoCore(ResourceLocation.tryParse(compoundTag.getString(TAG_YOYO_CORE)));
+            if (core != null) {
+                return FunkyYoyo.registryAccess().registryOrThrow(YoyoCore.REGISTRY_KEY).getResourceKey(core).get();
+            }
+        }
+        return null;
     }
 
     @Nullable
@@ -56,10 +102,11 @@ public class YoyoUtils {
 
         return null;
     }
+
     @Nullable
     public static YoyoCore getYoyoCore(ItemStack stack) {
         CompoundTag compoundTag = stack.getTag();
-        if(compoundTag != null) {
+        if (compoundTag != null) {
             return FunkyYoyo.registryAccess().registryOrThrow(YoyoCore.REGISTRY_KEY).get(ResourceLocation.tryParse(compoundTag.getString(TAG_YOYO_CORE)));
         }
 

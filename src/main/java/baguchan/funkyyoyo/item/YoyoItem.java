@@ -4,6 +4,7 @@ import baguchan.funkyyoyo.FunkyYoyo;
 import baguchan.funkyyoyo.client.render.item.YoyoItemBWLR;
 import baguchan.funkyyoyo.entity.Yoyo;
 import baguchan.funkyyoyo.register.ModItems;
+import baguchan.funkyyoyo.register.ModYoyoSides;
 import baguchan.funkyyoyo.util.YoyoUtils;
 import baguchan.funkyyoyo.yoyocore.YoyoCore;
 import baguchan.funkyyoyo.yoyoside.YoyoSide;
@@ -11,6 +12,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -20,6 +22,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -31,6 +35,21 @@ import java.util.function.Consumer;
 public class YoyoItem extends Item {
     public YoyoItem(Item.Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        ResourceKey<YoyoSide> yoyoSide = YoyoUtils.getYoyoSideKey(stack);
+        boolean canLightning = false;
+        if (yoyoSide != null) {
+            canLightning = yoyoSide.equals(ModYoyoSides.COPPER);
+        }
+        return (super.canApplyAtEnchantingTable(stack, enchantment) || enchantment == Enchantments.SHARPNESS || canLightning && enchantment == Enchantments.CHANNELING);
+    }
+
+    @Override
+    public int getEnchantmentValue(ItemStack stack) {
+        return 2;
     }
 
     @Override

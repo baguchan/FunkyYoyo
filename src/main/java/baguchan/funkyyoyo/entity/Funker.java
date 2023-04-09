@@ -2,6 +2,8 @@ package baguchan.funkyyoyo.entity;
 
 import baguchan.funkyyoyo.entity.ai.YoyoAttackGoal;
 import baguchan.funkyyoyo.register.ModItems;
+import baguchan.funkyyoyo.register.ModYoyoCores;
+import baguchan.funkyyoyo.register.ModYoyoSides;
 import baguchan.funkyyoyo.util.YoyoUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.nbt.CompoundTag;
@@ -95,7 +97,7 @@ public class Funker extends AbstractIllager {
     @Override
     protected void populateDefaultEquipmentSlots(RandomSource p_217055_, DifficultyInstance p_217056_) {
         if (this.getCurrentRaid() == null) {
-            this.setItemSlot(EquipmentSlot.MAINHAND, YoyoUtils.randomMakeYoyo(this.random, new ItemStack(ModItems.YOYO.get())));
+            this.setItemSlot(EquipmentSlot.MAINHAND, YoyoUtils.makeYoyo(YoyoUtils.getYoyoCore(ModYoyoCores.IRON), YoyoUtils.getYoyoSide(ModYoyoSides.IRON), new ItemStack(ModItems.YOYO.get())));
         }
     }
 

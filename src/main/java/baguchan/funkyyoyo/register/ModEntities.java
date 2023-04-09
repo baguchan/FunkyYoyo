@@ -24,7 +24,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<Funker>> FUNKER = ENTITIES.register("funker", () -> EntityType.Builder.of(Funker::new, MobCategory.MONSTER).sized(0.6F, 1.95F).build(prefix("funker")));
 
 
-    public static final RegistryObject<EntityType<Yoyo>> YOYO = ENTITIES.register("zombie_flesh", () -> EntityType.Builder.<Yoyo>of(Yoyo::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(10).build(prefix("yoyo")));
+    public static final RegistryObject<EntityType<Yoyo>> YOYO = ENTITIES.register("yoyo", () -> EntityType.Builder.<Yoyo>of(Yoyo::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(10).build(prefix("yoyo")));
 
 
     private static String prefix(String path) {
