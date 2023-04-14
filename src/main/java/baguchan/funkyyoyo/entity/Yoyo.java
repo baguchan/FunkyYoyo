@@ -215,6 +215,8 @@ public class Yoyo extends Projectile implements ItemSupplier {
                 setAttach(false);
                 this.inGround = false;
             }
+        } else if (this.inGround) {
+            this.setReturning(true);
         }
 
         if (entity != null && !shouldReturnToThrower() && isReturning()) {
