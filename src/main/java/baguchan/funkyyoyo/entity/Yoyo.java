@@ -203,7 +203,7 @@ public class Yoyo extends Projectile implements ItemSupplier {
 
         this.checkInsideBlocks();
 
-        if (entity != null) {
+        if (entity != null && entity.isAlive()) {
             if (inGround && canAttach()) {
                 Vec3 vec3d3 = new Vec3(getX() - entity.getX(), getY() - entity.getEyeY(), getZ() - entity.getZ());
                 double d0 = 0.2;

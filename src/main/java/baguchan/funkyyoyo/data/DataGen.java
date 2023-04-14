@@ -24,7 +24,7 @@ public class DataGen {
         BlockTagsProvider blocktags = new BlockTagGenerator(packOutput, lookupProvider, event.getExistingFileHelper());
         event.getGenerator().addProvider(event.includeServer(), blocktags);
         generator.addProvider(event.includeServer(), new DamageTypeTagGenerator(packOutput, lookupProvider, existingFileHelper));
-
+        event.getGenerator().addProvider(event.includeServer(), ModLootTableProvider.create(packOutput));
         event.getGenerator().addProvider(event.includeServer(), new CraftingGenerator(packOutput));
     }
 }
