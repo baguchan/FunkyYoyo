@@ -167,7 +167,7 @@ public class Yoyo extends Projectile implements ItemSupplier {
 
         Entity entity = getOwner();
 
-        if (!isReturning() && !this.canAttach()) {
+        if (!this.inGround && !isReturning()) {
             if (this.flyTick >= 20 && entity != null) {
                 setReturning(true);
             }
