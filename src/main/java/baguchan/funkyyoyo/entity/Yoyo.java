@@ -78,7 +78,7 @@ public class Yoyo extends Projectile implements ItemSupplier {
             int damage = (int) (((baseDamage + 1.0D) * Math.sqrt(getDeltaMovement().x * getDeltaMovement().x + getDeltaMovement().y * getDeltaMovement().y * 0.5D + getDeltaMovement().z * getDeltaMovement().z) + Math.min(1, sharpness) + Math.max(0, sharpness - 1) * 0.5D));
 
             if (damage != 0) {
-                if (result.getEntity().hurt(this.damageSources().thrown(this, shooter), damage)) {
+                if (result.getEntity().hurt(this.damageSources().source(ModDamageSources.YOYO, this, shooter), damage)) {
                     if (lightning > 0) {
                         result.getEntity().hurt(this.damageSources().source(ModDamageSources.LIGHTNING_THROWN, this, shooter), 4.0F);
                         this.playSound(ModSounds.ELECTRIC.get());

@@ -12,6 +12,9 @@
   "death.attack.funkyyoyo.lightning_thrown": "%1$s felt friction",
   "death.attack.funkyyoyo.lightning_thrown.item": "%1$s felt friction with %2$s 's throwing %3$s",
   "death.attack.funkyyoyo.lightning_thrown.player": "%1$s felt friction with %2$s",
+  "death.attack.funkyyoyo.yoyo": "%1$s hurt by yoyo",
+  "death.attack.funkyyoyo.yoyo.item": "%1$s hurt by %2$s 's throwing %3$s",
+  "death.attack.funkyyoyo.yoyo.player": "%1$s hurt by %2$s",
   "itemGroup.funkyyoyo.main": "Funky Yoyo",
   "subtitles.entity.yoyo.electric": "Electric"
 }

@@ -10,6 +10,9 @@
   "item.funkyyoyo.funker_spawn_egg": "ファンカーのスポーンエッグ",
   "enchantment.funkyyoyo.attach": "接着",
   "death.attack.funkyyoyo.lightning_thrown": "%1$sは、%2$sの投げた%3$sで、摩擦を感じた",
+  "death.attack.funkyyoyo.yoyo": "%1$sは、ヨーヨーにぶつかった",
+  "death.attack.funkyyoyo.yoyo.item": "%1$sは、%2$sの投げた%3$sで、傷ついた",
+  "death.attack.funkyyoyo.yoyo.player": "%1$sは、%2$sで、傷ついた",
   "itemGroup.funkyyoyo.main": "Funkey Yoyo",
   "subtitles.entity.yoyo.electric": "電気が流れる"
 }

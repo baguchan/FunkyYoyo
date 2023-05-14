@@ -8,5 +8,6 @@ import net.minecraft.world.damagesource.DamageType;
 
 public interface ModDamageSources {
     ResourceKey<DamageType> LIGHTNING_THROWN = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(FunkyYoyo.MODID, "lightning_thrown"));
+    ResourceKey<DamageType> YOYO = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(FunkyYoyo.MODID, "yoyo"));
 
 }
